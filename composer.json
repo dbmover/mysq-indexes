@@ -1,0 +1,13 @@
+{
+    "name": "dbmover/mysql-indexes",
+    "description": "Dbmover support for MySQL-style inline indexes",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marijn Ophorst",
+            "email": "marijn@monomelodies.nl"
+        }
+    ],
+    "require": {}
+}
