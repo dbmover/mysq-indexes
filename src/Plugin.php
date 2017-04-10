@@ -36,6 +36,9 @@ class Plugin extends Indexes\Plugin
         $stmt->execute([$this->loader->getDatabase()]);
         $existing = [];
         while (false !== ($row = $stmt->fetch(PDO::FETCH_ASSOC))) {
+            if ($row['index_name'] == 'PRIMARY') {
+                $row['index_name'] = "{$row['table_name']}_PRIMARY";
+            }
             if (!isset($existing[$row['index_name']])) {
                 $existing[$row['index_name']] = $row;
             } else {
@@ -47,12 +50,12 @@ class Plugin extends Indexes\Plugin
 
     protected function dropIndex(string $index, string $table) : string
     {
-        return "DROP INDEX $index ON $table;";
+        return "DROP INDEX `$index` ON `$table`;";
     }
 
-    protected function dropPrimaryKey(string $table) : string
+    protected function dropPrimaryKey(string $index, string $table) : string
     {
-        return "DROP INDEX `PRIMARY` ON $table;";
+        return "DROP INDEX `PRIMARY` ON `$table`;";
     }
 }
 
