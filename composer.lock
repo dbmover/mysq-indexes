@@ -1,0 +1,202 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "1a7abbb0641fe0bc8b6c9b7aade51dec",
+    "content-hash": "e8f6d8f40bdede8653f2ec0038dedcd0",
+    "packages": [
+        {
+            "name": "dbmover/core",
+            "version": "0.6.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dbmover/core.git",
+                "reference": "696fe3323ccb3b70d676076c61d7d99cc780cd94"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dbmover/core/zipball/696fe3323ccb3b70d676076c61d7d99cc780cd94",
+                "reference": "696fe3323ccb3b70d676076c61d7d99cc780cd94",
+                "shasum": ""
+            },
+            "require": {
+                "monomelodies/kingconf": "^1.1"
+            },
+            "require-dev": {
+                "gentry/gentry": "^0.10.2"
+            },
+            "bin": [
+                "bin/dbmover"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Dbmover\\Core\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marijn Ophorst",
+                    "email": "marijn@monomelodies.nl"
+                }
+            ],
+            "description": "PHP-based database versioning tool, core components",
+            "time": "2017-04-15 15:28:11"
+        },
+        {
+            "name": "dbmover/indexes",
+            "version": "0.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dbmover/indexes.git",
+                "reference": "f982ddeeef62bff5ad4857c436cf5608f6d0fb16"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dbmover/indexes/zipball/f982ddeeef62bff5ad4857c436cf5608f6d0fb16",
+                "reference": "f982ddeeef62bff5ad4857c436cf5608f6d0fb16",
+                "shasum": ""
+            },
+            "require": {
+                "dbmover/core": "^0.6.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Dbmover\\Indexes\\": "./src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marijn Ophorst",
+                    "email": "marijn@monomelodies.nl"
+                }
+            ],
+            "description": "Dbmover plugin to migrate indexes",
+            "time": "2017-04-15 06:15:38"
+        },
+        {
+            "name": "monomelodies/kingconf",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/monomelodies/kingconf.git",
+                "reference": "350bf4e1f8163b5843f9dec82bd6230968166015"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/monomelodies/kingconf/zipball/350bf4e1f8163b5843f9dec82bd6230968166015",
+                "reference": "350bf4e1f8163b5843f9dec82bd6230968166015",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4",
+                "symfony/yaml": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": ">=4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Monomelodies\\Kingconf\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marijn Ophorst",
+                    "email": "marijn@monomelodies.nl"
+                }
+            ],
+            "description": "Load configuration in any sane format",
+            "keywords": [
+                "config",
+                "configuration",
+                "ini",
+                "json",
+                "loader",
+                "php",
+                "xml",
+                "yaml"
+            ],
+            "time": "2016-07-15 06:21:55"
+        },
+        {
+            "name": "symfony/yaml",
+            "version": "v3.2.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/yaml.git",
+                "reference": "62b4cdb99d52cb1ff253c465eb1532a80cebb621"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/62b4cdb99d52cb1ff253c465eb1532a80cebb621",
+                "reference": "62b4cdb99d52cb1ff253c465eb1532a80cebb621",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "symfony/console": "~2.8|~3.0"
+            },
+            "suggest": {
+                "symfony/console": "For validating YAML files using the lint command"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Yaml\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Yaml Component",
+            "homepage": "https://symfony.com",
+            "time": "2017-03-20 09:45:15"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
