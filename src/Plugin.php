@@ -19,18 +19,62 @@ class Plugin extends Indexes\Plugin
                     $name,
                     $index[1],
                     '',
-                    $index[5],
+                    preg_replace(
+                        ['@,\s+@', '@(?<!`)(\w+)(?!`)@'],
+                        [',', '`\\1`'],
+                        $index[5]
+                    ),
                 ];
                 $sql = preg_replace("@{$index[2]},?$@ms", '', $sql);
             }
         }
-        return parent::__invoke($sql);
+        // Rewrite primary keys so all fields are force-quoted:
+        if (preg_match_all("@PRIMARY KEY\s*\((.*?)\)@ms", $sql, $matches, PREG_SET_ORDER)) {
+            foreach ($matches as $pk) {
+                $new = str_replace(
+                    $pk[1],
+                    preg_replace(
+                        '@(?<!`)(\w+)(?!`)@',
+                        '`\\1`',
+                        $pk[1]
+                    ),
+                    $pk[0]
+                );
+                $sql = str_replace($pk[0], $new, $sql);
+            }
+        }
+        // Rewrite indexes so all fields are force-quoted:
+        $sql = preg_replace_callback(
+            "@^CREATE\s*(UNIQUE)?\s*INDEX.*?ON\s*[\S]+\s*\((.*?)\);$@m",
+            function ($match) {
+                return preg_replace(
+                    "@\({$match[2]}\)@",
+                    '('.preg_replace('@(?<!`)(\w+)(?!`)(,|$)@', '`\\1`\\2', trim($match[2])).')',
+                    $match[0]
+                );
+            },
+            $sql
+        );
+        // Force-quote columns with single primary key:
+        $sql = preg_replace_callback(
+            "@^\s*(?<!`)(\w+)(?!`).*?PRIMARY KEY(\s*AUTO_INCREMENT)?,?$@m",
+            function ($match) {
+                return str_replace($match[1], "`{$match[1]}`", $match[0]);
+            },
+            $sql
+        );
+        $sql = parent::__invoke($sql);
+        // One last time, force-quote all columns:
+        foreach ($this->requestedIndexes as &$index) {
+            $index[5] = preg_replace('@(?<!`)(\w+)(?!`)@', '`\\1`', $index[5]);
+        }
+        return $sql;
     }
 
     protected function existingIndexes() : array
     {
         $stmt = $this->loader->getPdo()->prepare(
-            "SELECT table_name, column_name, index_name, non_unique, '' AS type
+            "SELECT table_name, CONCAT('`', column_name, '`') column_name, index_name, non_unique, '' AS type
                 FROM INFORMATION_SCHEMA.STATISTICS
                 WHERE TABLE_SCHEMA = ?");
         $stmt->execute([$this->loader->getDatabase()]);
